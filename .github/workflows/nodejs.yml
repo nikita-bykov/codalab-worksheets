@@ -7,7 +7,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      working-directory: frontend
+      working-directory: ./frontend
 
     strategy:
       matrix:
@@ -23,4 +23,4 @@ jobs:
     - run: npm run check-ci
       env:
         CI: true
-        working-directory: ${{env.working_directory}} 
+        working-directory: ${{env.working-directory}} 
