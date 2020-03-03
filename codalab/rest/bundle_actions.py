@@ -19,17 +19,11 @@ def create_bundle_actions():
     check_bundles_have_all_permission(local.model, request.user, [a['uuid'] for a in actions])
     for action in actions:
         bundle = local.model.get_bundle(action['uuid'])
-        if bundle.state not in [
-            State.CREATED,
-            State.UPLOADING,
-            State.STAGED,
-            State.PREPARING,
-            State.RUNNING,
-            State.FINALIZING,
-        ]:
+        if bundle.state in [State.READY, State.FAILED, State.KILLED]:
             raise UsageError(
-                'Cannot execute this action on a bundle that is not in the following states:'
-                'created, uploading, staged, running, preparing and finalizing.'
+                'Cannot execute this action on a bundle that is in the following states: ready, failed, killed. '
+                'Kill action can be executed on bundles in created, uploading, staged, making, starting, '
+                'running, preparing, or finalizing state.'
             )
 
         worker = local.model.get_bundle_worker(action['uuid'])
@@ -43,7 +37,7 @@ def create_bundle_actions():
             )
             local.model.update_bundle(bundle, {'metadata': {'actions': new_actions}})
         else:
-            # The state updates of bundles in CREATED, UPLOADING, or STAGED state
+            # The state updates of bundles in CREATED, UPLOADING, MAKING, STARTING or STAGED state
             # will be handled on the rest-server side.
             local.model.update_bundle(
                 bundle, {'state': State.KILLED, 'metadata': {'actions': new_actions}}
