@@ -6,6 +6,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      working-directory: frontend
 
     strategy:
       matrix:
@@ -17,7 +19,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: cd frontend && npm install
-    - run: cd frontend && npm run check-ci
+    - run: npm install
+    - run: npm run check-ci
       env:
         CI: true
+        working-directory: ${{env.working_directory}} 
