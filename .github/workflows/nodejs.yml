@@ -18,6 +18,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: cd frontend && npm install
-    - run: npm run check-ci
+    - run: cd frontend && npm run check-ci
       env:
         CI: true
