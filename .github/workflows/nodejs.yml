@@ -20,7 +20,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
+      working-directory: ${{env.working-directory}} 
     - run: npm run check-ci
+      working-directory: ${{env.working-directory}} 
       env:
         CI: true
-        working-directory: ${{env.working-directory}} 
+        
