@@ -1332,11 +1332,12 @@ def test(ctx):
         expected_exit_code=1,
         expected_failure_message='Disk limit 2mb exceeded.',
     )
+    wait(_run_command([cl, 'run', 'ping -c 1 google.com', '--request-network']), 0)
+    '''
 
     # Test network access
     wait(_run_command([cl, 'run', 'ping -c 1 google.com']), 1)
-    wait(_run_command([cl, 'run', 'ping -c 1 google.com', '--request-network']), 0)
-    '''
+
 
 
 # TODO: can't do this test until we can pass in another CodaLab instance.
