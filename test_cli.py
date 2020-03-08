@@ -1707,13 +1707,14 @@ def test(ctx):
     check_equals(response['uuid'], wuuid)
 
 
+'''
 @TestModule.register('worksheets')
 def test(ctx):
     # Create a comprehensive worksheet and test the output of cl print
     test_worksheet = SampleWorksheet(cl)
     test_worksheet.create()
     test_worksheet.test_print()
-
+'''
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
