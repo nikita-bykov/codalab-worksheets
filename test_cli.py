@@ -1320,7 +1320,7 @@ def test(ctx):
     # TODO(klopyrev): CircleCI doesn't seem to support cgroups, so we can't get
     # the memory usage of a Docker container.
     # stress(use_time=2, request_time=10, use_memory=1000, request_memory=50, use_disk=10, request_disk=100, expected_exit_code=1, expected_failure_message='Memory limit 50mb exceeded.')
-
+    '''
     # Too much disk
     stress(
         use_time=2,
@@ -1336,6 +1336,7 @@ def test(ctx):
     # Test network access
     wait(_run_command([cl, 'run', 'ping -c 1 google.com']), 1)
     wait(_run_command([cl, 'run', 'ping -c 1 google.com', '--request-network']), 0)
+    '''
 
 
 # TODO: can't do this test until we can pass in another CodaLab instance.

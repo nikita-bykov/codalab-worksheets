@@ -20,6 +20,7 @@ def create_bundle_actions():
     for action in actions:
         bundle = local.model.get_bundle(action['uuid'])
         if bundle.state in [State.READY, State.FAILED, State.KILLED]:
+            print("usage arror in ready, failed or killed.")
             raise UsageError(
                 'Cannot execute this action on a bundle that is in the following states: ready, failed, killed. '
                 'Kill action can be executed on bundles in created, uploading, staged, making, starting, '
@@ -31,12 +32,15 @@ def create_bundle_actions():
 
         # The state updates of bundles in PREPARING, RUNNING, or FINALIZING state will be handled on the worker side.
         if worker:
+            print(">>> worker exist....")
             precondition(
                 local.worker_model.send_json_message(worker['socket_id'], action, 60),
                 'Unable to reach worker.',
             )
             local.model.update_bundle(bundle, {'metadata': {'actions': new_actions}})
         else:
+            print(">>> worker does not exist....")
+
             # The state updates of bundles in CREATED, UPLOADING, MAKING, STARTING or STAGED state
             # will be handled on the rest-server side.
             local.model.update_bundle(

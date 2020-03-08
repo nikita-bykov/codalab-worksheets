@@ -18,11 +18,9 @@ jobs:
       with:
         path: ~/.cache/pip # This path is specific to Ubuntu
         # Look to see if there is a cache hit for the corresponding requirements file
-        key: ${{ runner.os }}-codalab-python-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-codalab-python-
-          ${{ runner.os }}-  
+        key: ${{ runner.os }}-codalab-cc
     - name: Install dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
@@ -40,10 +38,11 @@ jobs:
         #chmod +x docker-compose
         #sudo mv docker-compose /usr/local/bin
         #sudo service mysql stop
-        python3 codalab_service.py build services --version master --pull
+        python3 codalab_service.py build services --version master
         python3 codalab_service.py start --services default monitor --version master 
-        docker restart codalab_worker_1 && python3 codalab_service.py test run --version master
-        docker stop codalab_worker_1
-        python3 codalab_service.py start --services worker --version master --shared-file-system
-        python3 codalab_service.py test --version master --shared-file-system basic run read write kill resources netcat netcurl workers
+        python3 codalab_service.py test --version master default
+        #docker restart codalab_worker_1 && python3 codalab_service.py test run --version master
+        #docker stop codalab_worker_1
+        #python3 codalab_service.py start --services worker --version master --shared-file-system
+        #python3 codalab_service.py test --version master --shared-file-system basic run read write kill resources netcat netcurl workers
 
