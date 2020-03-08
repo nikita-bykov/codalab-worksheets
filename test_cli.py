@@ -1339,7 +1339,6 @@ def test(ctx):
     wait(_run_command([cl, 'run', 'ping -c 1 google.com']), 1)
 
 
-
 # TODO: can't do this test until we can pass in another CodaLab instance.
 @TestModule.register('copy', default=False)
 def test(ctx):
