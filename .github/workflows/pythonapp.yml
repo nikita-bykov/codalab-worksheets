@@ -1,13 +1,7 @@
 name: Python application
 
-on:
-  # This will prevent builds from happening twice when somebody opens a pull request against master and then pushes updates to their branch.
-  push:
-    branches:
-    - master
-  pull_request:
-    branches:
-    - master
+on: [push]
+
 jobs:
   build:
 
