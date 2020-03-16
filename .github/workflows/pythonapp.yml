@@ -26,7 +26,7 @@ jobs:
     #    npm run check-ci
     - name: Functionality
       env:
-        CODALAB_USERNAME: codalab 
+        CODALAB_USERNAME: codalab
         CODALAB_PASSWORD: codalab
       run: |
         sudo rm /usr/local/bin/docker-compose
