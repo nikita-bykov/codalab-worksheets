@@ -26,7 +26,7 @@ jobs:
       run: |
       #npm config set @actions:registry "https://npm.pkg.github.com"
       #echo "//npm.pkg.github.com/:_authToken=${GITHUB_FEED_TOKEN}" > ".npmrc"
-      #npm install @actions/toolcache-python-ubuntu-1804-x64@$3.6.101581681022
+      #npm install @actions/toolcache-python-ubuntu-1804-x64@$3.6.101579793336
 
     - name: Cache pip
       uses: actions/cache@v1
